@@ -56,6 +56,11 @@
             </div>
           </div>
           <div class="row">
+            <div class="col-lg-12">
+              <select id="stateDropdown" class="form-select" onchange="handleSelectChange()"></select>
+            </div>
+          </div>
+          <div class="row">
             <div class="input-group mt-3">
               <input type="text" id="txtPhone" class="form-control" value="+12285332612" size="35px"
                 onchange="ConvertPhoneNumber()" />
@@ -245,6 +250,8 @@
 
         const panel = document.getElementById('panelContainer');
         panel.style = "display:block";
+
+        loadAgentStates();
 
         loadQuickConnects();
       }
@@ -689,6 +696,52 @@
       function logOutput(text) {
         var textarea = document.getElementById("message");
         textarea.value += text + "\n";
+      }
+
+      function loadAgentStates() {
+        const agent = new lily.Agent();
+        const curState = agent.getState().name;
+        const states = agent.getAgentStates();
+        states.sort((a, b) => a.name.localeCompare(b.name));
+        window.agentStates = states;
+        const dropdown = document.getElementById("stateDropdown");
+        dropdown.options.length = 0;
+        for (let i = 0; i < states.length; i++) {
+          // Create a new <option> element
+          const option = document.createElement("option");
+
+          // Set the value and text of the <option>
+          option.value = i;
+          option.text = states[i].name;
+          if (option.text == curState) {
+            option.selected = "selected";
+          }
+
+          // Add the <option> to the <select>
+          dropdown.add(option);
+        };
+      }
+
+      function handleSelectChange() {
+        const dropdown = document.getElementById("stateDropdown");
+        const selectedOption = dropdown.options[dropdown.selectedIndex];
+        const selectedState = selectedOption.text;
+        SetAgentState(selectedState);
+      }
+
+      function SetAgentState(stateName) {
+        var agent = new lily.Agent();
+        if (agent) {
+          if (window.agentStates.length > 0) {
+            const state = window.agentStates.filter(s => s.name === stateName)[0];
+            agent.setState(state, {
+              success: function () {
+              },
+              failure: function () {
+              }
+            });
+          }
+        }
       }
     </script>
 </body>
