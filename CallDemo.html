@@ -7,12 +7,6 @@
   <script src="https://cdn.jsdelivr.net/npm/amazon-connect-streams@2.14.3/release/connect-streams.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/libphonenumber-js@1.11.12/bundle/libphonenumber-js.min.js"></script>
   <style>
-    .box {
-      /*border: 1px solid #ccc;*/
-      padding: 2px;
-      margin-bottom: 2px;
-    }
-
     .duration-indicator {
       font-size: 20px;
       color: white;
@@ -35,30 +29,19 @@
       height: 40px;
       margin-top: 2px;
     }
-
-    .close-button {
-      box-sizing: content-box;
-      width: 1em;
-      height: 1em;
-      padding: 0.25em 0.25em;
-      color: #000;
-      border: 0;
-      border-radius: 0.375rem;
-      opacity: 0.5;
-    }
   </style>
 </head>
 <!-- Add the call to init() as an onload so it will only run once the page is loaded -->
 
 <body onload="init()">
-  <div class="container">
+  <div class="container mt-3">
     <div class="row">
-      <div class="col-md-4 first-column">
+      <div class="col-lg-4 first-column">
         <div id="ccpContainer">
           <div id="container-div" style="width: 100%; height: 625px;"></div>
         </div>
       </div>
-      <div id="panelContainer" class="col-md-4 second-column" style="display: none;">
+      <div id="panelContainer" class="col-lg-8 second-column" style="display: none;">
         <div class="container">
           <div class="row">
             <div class="col-lg-12">
@@ -73,60 +56,57 @@
             </div>
           </div>
           <div class="row">
-            <div class="mt-3">
-              <div class="input-group">
-                <input type="text" id="txtPhone" class="form-control" value="+12285332612" size="35px"
-                  onchange="ConvertPhoneNumber()" />
-                <button class="btn btn-primary" onclick="ParsePhoneNumber()">解析国家</button>
-              </div>
+            <div class="input-group mt-3">
+              <input type="text" id="txtPhone" class="form-control" value="+12285332612" size="35px"
+                onchange="ConvertPhoneNumber()" />
+              <button class="btn btn-primary" onclick="ParsePhoneNumber()">解析国家</button>
             </div>
           </div>
           <div class="row">
-            <div class="col-md-12">
-              <div class="box">
-                <input id="accept-btn" type=button value="接受呼叫" class="btn btn-primary btn-sm"
-                  style="margin:2px;width:110px" onclick="AcceptContact()" /><input id="reject-btn" type=button
-                  value="拒绝呼叫" class="btn btn-primary btn-sm" style="margin:2px;width: 110px"
-                  onclick="RejectContact()" /><input id="transfer-btn" type=button value="转移呼叫"
-                  class="btn btn-primary btn-sm" style="margin:2px;width: 110px"
-                  onclick="TransferCallWithPhoneNumber()" /><input type=button value="呼叫" class="btn btn-primary btn-sm"
-                  style="margin:2px;width:110px" onclick="PlaceOutboundCall()" /><input type=button value="跨区呼叫"
-                  class="btn btn-primary btn-sm" style="margin:2px;width:110px"
-                  onclick="PlaceOutboundCallFromRegion()" />
-              </div>
+            <div class="col-lg-12 mt-3">
+              <input type=button value="接受呼叫" onclick="AcceptContact()" />
+              <input type=button value="拒绝呼叫" onclick="RejectContact()" />
+              <input type=button value="转移呼叫" onclick="TransferCallWithPhoneNumber()" />
+              <input type=button value="呼叫" onclick="PlaceOutboundCall()" />
+              <input type=button value="跨区呼叫" onclick="PlaceOutboundCallFromRegion()" />
             </div>
           </div>
           <div class="row">
-            <div class="col-md-12">
-              <div class="box">
-                <input id="resume-btn" type=button value="恢复待机" class="btn btn-primary btn-sm"
-                  style="margin:2px;width: 110px" onclick="ResumeContact()" />
-                <input id="resume-btn" type=button value="待机" class="btn btn-primary btn-sm"
-                  style="margin:2px;width: 110px" onclick="HoldContact()" /><input type=button value="结束通话"
-                  class="btn btn-primary btn-sm" style="margin:2px;width:110px" onclick="EndCall()" /><input type=button
-                  value="结束ACW" class="btn btn-primary btn-sm" style="margin:2px;width:110px" onclick="ClearCall()" />
-              </div>
+            <div class="col-md-12 mt-3">
+              <input type=button value="恢复待机" onclick="ResumeContact()" />
+              <input type=button value="待机" onclick="HoldContact()" />
+              <input type=button value="结束通话" onclick="EndCall()" />
+              <input type=button value="结束ACW" onclick="ClearCall()" />
             </div>
           </div>
           <div class="row">
-            <div class="col-lg-12">
-              <div class="box">
-                <input id="ccpContainer-btn" type=button value="隐藏CCP" class="btn btn-primary btn-sm"
-                  style="margin:2px;width:110px" onclick="HideCCP()" /> <input type=button value="关闭CCP"
-                  class="btn btn-primary btn-sm" style="margin:2px;width:110px" onclick="Terminate()" /><input
-                  type=button value="初始化CCP" class="btn btn-primary btn-sm" style="margin:2px;width:110px"
-                  onclick="init()"></input>
-              </div>
+            <div class="col-lg-12 mt-3">
+              <input id="ccpContainer-btn" type=button value="隐藏CCP" onclick="HideCCP()" />
+              <input type=button value="关闭CCP" onclick="Terminate()" />
+              <input type=button value="初始化CCP" onclick="init()"></input>
             </div>
           </div>
 
           <div class="row">
-            <div class="input-group">
+            <div class="input-group mt-3">
               <select id="myDropdown" class="form-select"></select>
               <button class="btn btn-primary" onclick="TransferCall()">电话转接</button>
             </div>
           </div>
         </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="m-2">
+          <div class="d-flex">
+            <input type="button" id="clear" value="Clear Event Output" class="btn btn-primary btn-sm me-2"
+              style="width: 150px" onclick="clearOutput()">
+            <input id="outputContainer-btn" type="button" value="Show Event Output" class="btn btn-primary btn-sm"
+              style="width: 150px" onclick="ShowOutput()">
+          </div>
+        </div>
+        <textarea id="message" class="form-control" rows="12" cols="50" style="display: none;"></textarea>
       </div>
     </div>
 
@@ -162,15 +142,22 @@
 
         connect.agent(subscribeToAgentEvents);
 
-        HideCCP();
+        ApplyInputStyle();
+      }
 
+      function ApplyInputStyle() {
+        var buttonInputs = document.querySelectorAll('#panelContainer input[type="button"]');
+        for (var i = 0; i < buttonInputs.length; i++) {
+          buttonInputs[i].classList.add('btn', 'btn-primary', 'btn-sm', 'me-2');
+          buttonInputs[i].style.width = '100px';
+        }
       }
 
       function authenticate() {
         try {
           AWS.config.update({ region: '', accessKeyId: '', secretAccessKey: '' });
         } catch (e) {
-          console.log(e);
+          logOutput(e);
         }
 
       }
@@ -212,7 +199,7 @@
 
       function subscribeToContactEvents(c) {
         c.onConnecting(function (c) {
-          console.log("onConnecting event : Contact connecting to agent")
+          logOutput("onConnecting event : Contact connecting to agent")
           window.contact = c;
 
           const customernumber = getCustomerPhoneNumber();
@@ -220,7 +207,7 @@
         });
 
         c.onConnected(function (c) {
-          console.log('onConnected event : Contact connected to agent');
+          logOutput('onConnected event : Contact connected to agent');
 
           window.contact = c;
           window.agentConnection = c.getAgentConnection();
@@ -254,7 +241,7 @@
       }
 
       function subscribeToAgentEvents(agent) {
-        console.log('Agent login');
+        logOutput('Agent login');
 
         const panel = document.getElementById('panelContainer');
         panel.style = "display:block";
@@ -298,7 +285,7 @@
 
         window.endpoints = window.endpoints || [];
 
-
+        window.isOutputVisible = false;
       }
 
       function convertToE164(phoneNumber) {
@@ -381,17 +368,17 @@
           };
 
           awsconnect.startOutboundVoiceContact(params, function (err, res) {
-            console.log("we are about to call customer from specifed region");
-            console.log(params);
+            logOutput("we are about to call customer from specifed region");
+            logOutput(params);
             if (err) {
-              console.log("Error calling customer: " + err);
+              logOutput("Error calling customer: " + err);
             } else {
-              console.log("Calling customer: " + JSON.stringify(res));
+              logOutput("Calling customer: " + JSON.stringify(res));
             }
           });
 
         } catch (error) {
-          console.log(error);
+          logOutput(error);
         }
 
       }
@@ -515,7 +502,7 @@
 
       function EndCall() {
         if (window.contact == {}) {
-          alert("No call is connected");
+          logOutput("No call is connected");
         }
         else {
           c = window.contact;
@@ -523,9 +510,10 @@
           if (initialConnection) {
             initialConnection.destroy({
               success: function () {
+                logOutput('onDestroy event : Contact destroyed');
               },
               failure: function (err) {
-                alert(err)
+                logOutput(err);
               }
             });
           }
@@ -682,6 +670,25 @@
             }
           });
         }
+      }
+
+      function ShowOutput() {
+        window.isOutputVisible = !window.isOutputVisible;
+
+        var containerBtn = document.getElementById("outputContainer-btn");
+        containerBtn.value = window.isOutputVisible ? "Hide Output" : "Show Output";
+
+        var containerDiv = document.getElementById("message");
+        containerDiv.style = window.isOutputVisible ? "width: 100%; height: 100%;display:block" : "width: 100%; height: 100%;display:none";
+      }
+
+      function clearOutput(text) {
+        document.getElementById('message').value = "";
+      }
+
+      function logOutput(text) {
+        var textarea = document.getElementById("message");
+        textarea.value += text + "\n";
       }
     </script>
 </body>
