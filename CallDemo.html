@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
-  <script src="https://cdn.jsdelivr.net/npm/amazon-connect-streams@2.14.3/release/connect-streams.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/amazon-connect-streams@2.18.5/release/connect-streams.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/libphonenumber-js@1.11.12/bundle/libphonenumber-js.min.js"></script>
   <style>
     .duration-indicator {
@@ -187,6 +187,7 @@
               allowFramedSoftphone: true,   // optional, defaults to false
               disableRingtone: false,       // optional, defaults to false
               // ringtoneUrl: "./ringtone.mp3" // optional, defaults to CCP’s default ringtone if a falsy value is set
+              allowFramedVideoCall: true, // optional, defaults to false
             },
             pageOptions: { //optional
               enableAudioDeviceSettings: true, //optional, defaults to 'false'
