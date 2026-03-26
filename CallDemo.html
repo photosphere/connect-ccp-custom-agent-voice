@@ -39,9 +39,7 @@
     .call-btn { transition: all 0.2s ease; }
     .call-btn:hover { transform: scale(1.05); }
     .call-btn:active { transform: scale(0.95); }
-    .pulse-ring {
-      animation: pulse-ring 1.5s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
-    }
+    .pulse-ring { animation: pulse-ring 1.5s cubic-bezier(0.215, 0.61, 0.355, 1) infinite; }
     @keyframes pulse-ring {
       0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.4); }
       70% { box-shadow: 0 0 0 12px rgba(16, 185, 129, 0); }
@@ -57,37 +55,36 @@
     .close-button {
       background: #fee2e2; border: none; color: #ef4444;
       border-radius: 50%; width: 22px; height: 22px; cursor: pointer;
-      display: flex; align-items: center; justify-content: center; font-size: 14px;
-      font-weight: 600;
+      display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 600;
     }
     .close-button:hover { background: #fecaca; }
     .tab-btn { transition: all 0.2s ease; }
     .tab-btn.active { background-color: #6366f1; color: white; box-shadow: 0 2px 8px rgba(99,102,241,0.3); }
+    .right-tab-btn { transition: all 0.2s ease; border-bottom: 2px solid transparent; }
+    .right-tab-btn.active { border-bottom-color: #6366f1; color: #6366f1; }
   </style>
 </head>
 
 <body onload="init()" class="bg-gradient-to-br from-indigo-50 via-white to-sky-50 min-h-screen">
-  <div class="max-w-7xl mx-auto px-4 py-6">
-    <div class="flex flex-wrap gap-6">
-      <!-- CCP Container -->
-      <div class="first-column">
-        <div id="ccpContainer">
-          <div id="container-div" style="width: 100%; height: 625px;"></div>
-        </div>
-      </div>
+  <!-- Hidden CCP init container — always in DOM for connect.core.initCCP -->
+  <div id="ccpContainer" style="display:none;">
+    <div id="container-div" style="width:100%; height:625px;"></div>
+  </div>
 
-      <!-- Softphone Panel -->
-      <div id="panelContainer" class="second-column" style="display: none;"></div>
+  <div class="max-w-7xl mx-auto px-4 py-6">
+    <div class="flex flex-wrap gap-6 items-start">
+
+      <!-- ========== Softphone Panel ========== -->
+      <div id="panelContainer" class="second-column" style="display: none;">
         <div class="w-[380px] bg-phone-card rounded-3xl shadow-xl overflow-hidden border border-indigo-100">
 
-          <!-- ===== Top Bar ===== -->
+          <!-- Top Bar -->
           <div class="bg-gradient-to-r from-indigo-500 to-violet-500 px-4 py-3 flex items-center justify-between">
             <div class="flex items-center gap-2">
               <button onclick="toggleSettings()" class="text-white/70 hover:text-white transition" title="配置">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                    d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.066 2.573c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.573 1.066c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.066-2.573c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.066 2.573c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.573 1.066c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.066-2.573c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/>
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
                 </svg>
               </button>
               <span class="text-white text-sm font-semibold tracking-wide">Softphone</span>
@@ -97,12 +94,12 @@
               <select id="stateDropdown"
                 class="bg-transparent text-white text-xs border-none outline-none cursor-pointer appearance-none pr-3 max-w-[120px] truncate"
                 onchange="handleSelectChange()"
-                style="background-image: url('data:image/svg+xml;utf8,<svg fill=\"white\" viewBox=\"0 0 20 20\" xmlns=\"http://www.w3.org/2000/svg\"><path fill-rule=\"evenodd\" d=\"M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z\" clip-rule=\"evenodd\"/></svg>'); background-repeat: no-repeat; background-position: right 0 center; background-size: 14px;">
+                style="background-image: url('data:image/svg+xml;utf8,<svg fill=&quot;white&quot; viewBox=&quot;0 0 20 20&quot; xmlns=&quot;http://www.w3.org/2000/svg&quot;><path fill-rule=&quot;evenodd&quot; d=&quot;M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z&quot; clip-rule=&quot;evenodd&quot;/></svg>'); background-repeat: no-repeat; background-position: right 0 center; background-size: 14px;">
               </select>
             </div>
           </div>
 
-          <!-- ===== Settings Panel (collapsible) ===== -->
+          <!-- Settings Panel (collapsible) -->
           <div id="settingsPanel" class="hidden bg-indigo-50 border-b border-indigo-100 px-4 py-3">
             <div class="flex gap-2">
               <button onclick="init()"
@@ -110,10 +107,10 @@
                 <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
                 初始化 CCP
               </button>
-              <button id="ccpContainer-btn" onclick="HideCCP()"
+              <button id="ccpContainer-btn" onclick="toggleCCPPanel()"
                 class="flex-1 bg-white hover:bg-gray-50 text-phone-textSec text-xs px-3 py-2 rounded-lg transition flex items-center justify-center gap-1 border border-gray-200 shadow-sm">
-                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.878 9.878L6.59 6.59m7.532 7.532l3.29 3.29M3 3l18 18"/></svg>
-                <span id="ccpToggleText">隐藏 CCP</span>
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+                <span id="ccpToggleText">原生 Softphone</span>
               </button>
               <button onclick="Terminate()"
                 class="flex-1 bg-phone-redLight hover:bg-red-100 text-phone-red text-xs px-3 py-2 rounded-lg transition flex items-center justify-center gap-1 shadow-sm">
@@ -121,114 +118,84 @@
                 关闭 CCP
               </button>
             </div>
+            <div class="flex gap-2 mt-2">
+              <button id="logPanel-btn" onclick="toggleLogPanel()"
+                class="flex-1 bg-white hover:bg-gray-50 text-phone-textSec text-xs px-3 py-2 rounded-lg transition flex items-center justify-center gap-1 border border-gray-200 shadow-sm">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                <span id="logToggleText">显示日志</span>
+              </button>
+              <button id="funcPanel-btn" onclick="toggleFuncPanel()"
+                class="flex-1 bg-white hover:bg-gray-50 text-phone-textSec text-xs px-3 py-2 rounded-lg transition flex items-center justify-center gap-1 border border-gray-200 shadow-sm">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zm10 0a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zm10 0a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"/></svg>
+                <span id="funcToggleText">显示功能</span>
+              </button>
+            </div>
           </div>
 
-          <!-- ===== Call Duration Banner ===== -->
+          <!-- Call Duration Banner -->
           <div id="duration-indicator" style="display: none;"
             class="mx-4 mt-3 bg-gradient-to-r from-indigo-500 to-violet-500 text-white text-center text-sm font-mono py-2.5 px-3 rounded-xl shadow-md">
           </div>
           <div id="duration-indicator-thirdparty" style="display: none;" class="mx-4 mt-1"></div>
 
-          <!-- ===== Tab Navigation ===== -->
+          <!-- Tab Navigation -->
           <div class="flex mx-4 mt-3 bg-phone-surface rounded-xl p-1 gap-1">
             <button onclick="switchTab('dialpad')" id="tab-dialpad"
-              class="tab-btn active flex-1 text-xs py-2 rounded-lg text-phone-muted font-medium transition">
-              拨号盘
-            </button>
+              class="tab-btn active flex-1 text-xs py-2 rounded-lg text-phone-muted font-medium transition">拨号盘</button>
             <button onclick="switchTab('transfer')" id="tab-transfer"
-              class="tab-btn flex-1 text-xs py-2 rounded-lg text-phone-muted font-medium transition">
-              转接
-            </button>
+              class="tab-btn flex-1 text-xs py-2 rounded-lg text-phone-muted font-medium transition">转接</button>
           </div>
 
-          <!-- ===== Phone Number Display ===== -->
+          <!-- Phone Number Display -->
           <div class="px-4 pt-4 pb-2">
             <div class="flex items-center bg-phone-surface rounded-xl px-4 py-3 border border-indigo-100">
               <input type="text" id="txtPhone"
                 class="flex-1 bg-transparent text-phone-text text-xl font-light tracking-wider outline-none placeholder-gray-300 min-w-0"
-                value="+12285332612" placeholder="输入号码..."
-                onchange="ConvertPhoneNumber()" />
+                value="+12285332612" placeholder="输入号码..." onchange="ConvertPhoneNumber()" />
               <button onclick="dialpadBackspace()" class="text-phone-muted hover:text-phone-red transition ml-2 shrink-0" title="删除">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2M3 12l7-7 11 0v14H10L3 12z"/>
-                </svg>
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2M3 12l7-7 11 0v14H10L3 12z"/></svg>
               </button>
               <button onclick="ParsePhoneNumber()" class="text-phone-muted hover:text-phone-accent transition ml-2 shrink-0" title="解析国家">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                </svg>
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
               </button>
             </div>
           </div>
 
-          <!-- ===== Dialpad Tab ===== -->
+          <!-- Dialpad Tab -->
           <div id="panel-dialpad" class="px-4 pb-2">
             <div class="grid grid-cols-3 gap-2 mb-4">
-              <button onclick="dialpadInput('1')" class="dialpad-btn bg-white hover:bg-indigo-50 text-phone-text rounded-xl py-3 text-lg font-light border border-gray-100 shadow-sm">
-                <div>1</div><div class="text-[9px] text-phone-muted h-3">&nbsp;</div>
-              </button>
-              <button onclick="dialpadInput('2')" class="dialpad-btn bg-white hover:bg-indigo-50 text-phone-text rounded-xl py-3 text-lg font-light border border-gray-100 shadow-sm">
-                <div>2</div><div class="text-[9px] text-phone-muted h-3">ABC</div>
-              </button>
-              <button onclick="dialpadInput('3')" class="dialpad-btn bg-white hover:bg-indigo-50 text-phone-text rounded-xl py-3 text-lg font-light border border-gray-100 shadow-sm">
-                <div>3</div><div class="text-[9px] text-phone-muted h-3">DEF</div>
-              </button>
-              <button onclick="dialpadInput('4')" class="dialpad-btn bg-white hover:bg-indigo-50 text-phone-text rounded-xl py-3 text-lg font-light border border-gray-100 shadow-sm">
-                <div>4</div><div class="text-[9px] text-phone-muted h-3">GHI</div>
-              </button>
-              <button onclick="dialpadInput('5')" class="dialpad-btn bg-white hover:bg-indigo-50 text-phone-text rounded-xl py-3 text-lg font-light border border-gray-100 shadow-sm">
-                <div>5</div><div class="text-[9px] text-phone-muted h-3">JKL</div>
-              </button>
-              <button onclick="dialpadInput('6')" class="dialpad-btn bg-white hover:bg-indigo-50 text-phone-text rounded-xl py-3 text-lg font-light border border-gray-100 shadow-sm">
-                <div>6</div><div class="text-[9px] text-phone-muted h-3">MNO</div>
-              </button>
-              <button onclick="dialpadInput('7')" class="dialpad-btn bg-white hover:bg-indigo-50 text-phone-text rounded-xl py-3 text-lg font-light border border-gray-100 shadow-sm">
-                <div>7</div><div class="text-[9px] text-phone-muted h-3">PQRS</div>
-              </button>
-              <button onclick="dialpadInput('8')" class="dialpad-btn bg-white hover:bg-indigo-50 text-phone-text rounded-xl py-3 text-lg font-light border border-gray-100 shadow-sm">
-                <div>8</div><div class="text-[9px] text-phone-muted h-3">TUV</div>
-              </button>
-              <button onclick="dialpadInput('9')" class="dialpad-btn bg-white hover:bg-indigo-50 text-phone-text rounded-xl py-3 text-lg font-light border border-gray-100 shadow-sm">
-                <div>9</div><div class="text-[9px] text-phone-muted h-3">WXYZ</div>
-              </button>
-              <button onclick="dialpadInput('*')" class="dialpad-btn bg-white hover:bg-indigo-50 text-phone-text rounded-xl py-3 text-lg font-light border border-gray-100 shadow-sm">
-                <div>*</div><div class="text-[9px] text-phone-muted h-3">&nbsp;</div>
-              </button>
-              <button onclick="dialpadInput('0')" class="dialpad-btn bg-white hover:bg-indigo-50 text-phone-text rounded-xl py-3 text-lg font-light border border-gray-100 shadow-sm">
-                <div>0</div><div class="text-[9px] text-phone-muted h-3">+</div>
-              </button>
-              <button onclick="dialpadInput('#')" class="dialpad-btn bg-white hover:bg-indigo-50 text-phone-text rounded-xl py-3 text-lg font-light border border-gray-100 shadow-sm">
-                <div>#</div><div class="text-[9px] text-phone-muted h-3">&nbsp;</div>
-              </button>
+              <button onclick="dialpadInput('1')" class="dialpad-btn bg-white hover:bg-indigo-50 text-phone-text rounded-xl py-3 text-lg font-light border border-gray-100 shadow-sm"><div>1</div><div class="text-[9px] text-phone-muted h-3">&nbsp;</div></button>
+              <button onclick="dialpadInput('2')" class="dialpad-btn bg-white hover:bg-indigo-50 text-phone-text rounded-xl py-3 text-lg font-light border border-gray-100 shadow-sm"><div>2</div><div class="text-[9px] text-phone-muted h-3">ABC</div></button>
+              <button onclick="dialpadInput('3')" class="dialpad-btn bg-white hover:bg-indigo-50 text-phone-text rounded-xl py-3 text-lg font-light border border-gray-100 shadow-sm"><div>3</div><div class="text-[9px] text-phone-muted h-3">DEF</div></button>
+              <button onclick="dialpadInput('4')" class="dialpad-btn bg-white hover:bg-indigo-50 text-phone-text rounded-xl py-3 text-lg font-light border border-gray-100 shadow-sm"><div>4</div><div class="text-[9px] text-phone-muted h-3">GHI</div></button>
+              <button onclick="dialpadInput('5')" class="dialpad-btn bg-white hover:bg-indigo-50 text-phone-text rounded-xl py-3 text-lg font-light border border-gray-100 shadow-sm"><div>5</div><div class="text-[9px] text-phone-muted h-3">JKL</div></button>
+              <button onclick="dialpadInput('6')" class="dialpad-btn bg-white hover:bg-indigo-50 text-phone-text rounded-xl py-3 text-lg font-light border border-gray-100 shadow-sm"><div>6</div><div class="text-[9px] text-phone-muted h-3">MNO</div></button>
+              <button onclick="dialpadInput('7')" class="dialpad-btn bg-white hover:bg-indigo-50 text-phone-text rounded-xl py-3 text-lg font-light border border-gray-100 shadow-sm"><div>7</div><div class="text-[9px] text-phone-muted h-3">PQRS</div></button>
+              <button onclick="dialpadInput('8')" class="dialpad-btn bg-white hover:bg-indigo-50 text-phone-text rounded-xl py-3 text-lg font-light border border-gray-100 shadow-sm"><div>8</div><div class="text-[9px] text-phone-muted h-3">TUV</div></button>
+              <button onclick="dialpadInput('9')" class="dialpad-btn bg-white hover:bg-indigo-50 text-phone-text rounded-xl py-3 text-lg font-light border border-gray-100 shadow-sm"><div>9</div><div class="text-[9px] text-phone-muted h-3">WXYZ</div></button>
+              <button onclick="dialpadInput('*')" class="dialpad-btn bg-white hover:bg-indigo-50 text-phone-text rounded-xl py-3 text-lg font-light border border-gray-100 shadow-sm"><div>*</div><div class="text-[9px] text-phone-muted h-3">&nbsp;</div></button>
+              <button onclick="dialpadInput('0')" class="dialpad-btn bg-white hover:bg-indigo-50 text-phone-text rounded-xl py-3 text-lg font-light border border-gray-100 shadow-sm"><div>0</div><div class="text-[9px] text-phone-muted h-3">+</div></button>
+              <button onclick="dialpadInput('#')" class="dialpad-btn bg-white hover:bg-indigo-50 text-phone-text rounded-xl py-3 text-lg font-light border border-gray-100 shadow-sm"><div>#</div><div class="text-[9px] text-phone-muted h-3">&nbsp;</div></button>
             </div>
-
-            <!-- Call Action Buttons -->
             <div class="flex items-center justify-center gap-4 mb-3">
               <button onclick="PlaceOutboundCall()" title="呼叫"
                 class="call-btn w-14 h-14 rounded-full bg-phone-green hover:bg-emerald-400 flex items-center justify-center shadow-lg pulse-ring">
-                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
-                </svg>
+                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
               </button>
               <button onclick="PlaceOutboundCallFromRegion()" title="跨区呼叫"
                 class="call-btn w-10 h-10 rounded-full bg-phone-accent hover:bg-phone-accentHover flex items-center justify-center shadow-md">
-                <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                </svg>
+                <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
               </button>
             </div>
           </div>
 
-          <!-- ===== Transfer Tab ===== -->
+          <!-- Transfer Tab -->
           <div id="panel-transfer" class="px-4 pb-4 hidden">
             <div class="mb-4">
               <label class="text-phone-textSec text-xs mb-1.5 block font-medium">快速转接</label>
               <div class="flex gap-2">
-                <select id="myDropdown"
-                  class="flex-1 bg-white text-phone-text text-sm border border-gray-200 rounded-lg px-3 py-2.5 outline-none focus:border-phone-accent focus:ring-2 focus:ring-indigo-100 transition shadow-sm">
-                </select>
-                <button onclick="TransferCall()"
-                  class="bg-phone-accent hover:bg-phone-accentHover text-white text-sm px-4 py-2.5 rounded-lg transition flex items-center gap-1 shrink-0 shadow-sm">
+                <select id="myDropdown" class="flex-1 bg-white text-phone-text text-sm border border-gray-200 rounded-lg px-3 py-2.5 outline-none focus:border-phone-accent focus:ring-2 focus:ring-indigo-100 transition shadow-sm"></select>
+                <button onclick="TransferCall()" class="bg-phone-accent hover:bg-phone-accentHover text-white text-sm px-4 py-2.5 rounded-lg transition flex items-center gap-1 shrink-0 shadow-sm">
                   <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"/></svg>
                   转接
                 </button>
@@ -236,89 +203,191 @@
             </div>
             <div>
               <label class="text-phone-textSec text-xs mb-1.5 block font-medium">号码转接 (使用上方号码)</label>
-              <button onclick="TransferCallWithPhoneNumber()"
-                class="w-full bg-white hover:bg-indigo-50 text-phone-textSec text-sm px-4 py-2.5 rounded-lg transition flex items-center justify-center gap-2 border border-gray-200 shadow-sm">
+              <button onclick="TransferCallWithPhoneNumber()" class="w-full bg-white hover:bg-indigo-50 text-phone-textSec text-sm px-4 py-2.5 rounded-lg transition flex items-center justify-center gap-2 border border-gray-200 shadow-sm">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
                 转移到号码
               </button>
             </div>
           </div>
 
-          <!-- ===== Incoming Call Actions ===== -->
+          <!-- Incoming Call Actions -->
           <div id="incomingActions" class="px-4 pb-2 hidden">
             <div class="flex gap-3 justify-center">
-              <button onclick="AcceptContact()" title="接受呼叫"
-                class="call-btn flex-1 bg-phone-greenLight hover:bg-emerald-100 text-phone-green py-3 rounded-xl transition flex items-center justify-center gap-2 text-sm font-semibold border border-emerald-200">
+              <button onclick="AcceptContact()" title="接受呼叫" class="call-btn flex-1 bg-phone-greenLight hover:bg-emerald-100 text-phone-green py-3 rounded-xl transition flex items-center justify-center gap-2 text-sm font-semibold border border-emerald-200">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
                 接听
               </button>
-              <button onclick="RejectContact()" title="拒绝呼叫"
-                class="call-btn flex-1 bg-phone-redLight hover:bg-red-100 text-phone-red py-3 rounded-xl transition flex items-center justify-center gap-2 text-sm font-semibold border border-red-200">
+              <button onclick="RejectContact()" title="拒绝呼叫" class="call-btn flex-1 bg-phone-redLight hover:bg-red-100 text-phone-red py-3 rounded-xl transition flex items-center justify-center gap-2 text-sm font-semibold border border-red-200">
                 <svg class="w-5 h-5 rotate-[135deg]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
                 拒接
               </button>
             </div>
           </div>
 
-          <!-- ===== In-Call Controls ===== -->
+          <!-- In-Call Controls -->
           <div id="callControls" class="px-4 pb-3 hidden">
             <div class="grid grid-cols-4 gap-2">
-              <button onclick="HoldContact()" title="待机"
-                class="bg-white hover:bg-indigo-50 text-phone-textSec rounded-xl py-3 transition flex flex-col items-center gap-1 border border-gray-100 shadow-sm">
+              <button onclick="HoldContact()" title="待机" class="bg-white hover:bg-indigo-50 text-phone-textSec rounded-xl py-3 transition flex flex-col items-center gap-1 border border-gray-100 shadow-sm">
                 <svg class="w-5 h-5 text-phone-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 9v6m4-6v6m7-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
                 <span class="text-[10px]">待机</span>
               </button>
-              <button onclick="ResumeContact()" title="恢复"
-                class="bg-white hover:bg-indigo-50 text-phone-textSec rounded-xl py-3 transition flex flex-col items-center gap-1 border border-gray-100 shadow-sm">
+              <button onclick="ResumeContact()" title="恢复" class="bg-white hover:bg-indigo-50 text-phone-textSec rounded-xl py-3 transition flex flex-col items-center gap-1 border border-gray-100 shadow-sm">
                 <svg class="w-5 h-5 text-phone-green" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
                 <span class="text-[10px]">恢复</span>
               </button>
-              <button onclick="EndCall()" title="结束通话"
-                class="bg-phone-redLight hover:bg-red-100 text-phone-red rounded-xl py-3 transition flex flex-col items-center gap-1 border border-red-100">
+              <button onclick="EndCall()" title="结束通话" class="bg-phone-redLight hover:bg-red-100 text-phone-red rounded-xl py-3 transition flex flex-col items-center gap-1 border border-red-100">
                 <svg class="w-5 h-5 rotate-[135deg]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
                 <span class="text-[10px]">挂断</span>
               </button>
-              <button onclick="ClearCall()" title="结束ACW"
-                class="bg-phone-orangeLight hover:bg-amber-100 text-phone-orange rounded-xl py-3 transition flex flex-col items-center gap-1 border border-amber-100">
+              <button onclick="ClearCall()" title="结束ACW" class="bg-phone-orangeLight hover:bg-amber-100 text-phone-orange rounded-xl py-3 transition flex flex-col items-center gap-1 border border-amber-100">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
                 <span class="text-[10px]">结束ACW</span>
               </button>
             </div>
           </div>
-
           <div class="h-2"></div>
         </div>
       </div>
-    </div>
 
-    <!-- Event Output -->
-    <div class="mt-6">
-      <div class="w-full">
-        <div class="m-2 flex gap-2">
+      <!-- ========== Right Side Panel (CCP / Log tabs) ========== -->
+      <div id="rightPanel" class="hidden">
+        <div class="bg-phone-card rounded-3xl shadow-xl overflow-hidden border border-indigo-100" style="width: 460px;">
+          <!-- Tab Header -->
+          <div id="rightTabBar" class="flex border-b border-gray-100 bg-phone-surface/50">
+            <!-- tabs are inserted dynamically -->
+          </div>
+          <!-- Tab Content: CCP -->
+          <div id="rightPanel-ccp" class="p-4 hidden">
+            <div id="ccpSlot" class="rounded-2xl overflow-hidden border border-indigo-100 bg-white shadow-inner" style="height: 625px;"></div>
+          </div>
+          <!-- Tab Content: Log -->
+          <div id="rightPanel-log" class="p-4 hidden">
+            <div id="logSlot" class="space-y-3">
+              <!-- clear button + message textarea will be moved here dynamically -->
+            </div>
+          </div>
+          <!-- Tab Content: Func -->
+          <div id="rightPanel-func" class="p-4 hidden">
+            <div class="space-y-4">
+              <!-- 来电操作 -->
+              <div>
+                <div class="text-xs text-phone-muted font-medium mb-2 flex items-center gap-1">
+                  <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
+                  来电操作
+                </div>
+                <div class="grid grid-cols-2 gap-2">
+                  <button onclick="AcceptContact()" class="bg-phone-greenLight hover:bg-emerald-100 text-phone-green text-sm py-2.5 rounded-xl transition flex items-center justify-center gap-2 font-medium border border-emerald-200">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
+                    接听
+                  </button>
+                  <button onclick="RejectContact()" class="bg-phone-redLight hover:bg-red-100 text-phone-red text-sm py-2.5 rounded-xl transition flex items-center justify-center gap-2 font-medium border border-red-200">
+                    <svg class="w-4 h-4 rotate-[135deg]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
+                    拒接
+                  </button>
+                </div>
+              </div>
+              <!-- 通话控制 -->
+              <div>
+                <div class="text-xs text-phone-muted font-medium mb-2 flex items-center gap-1">
+                  <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"/></svg>
+                  通话控制
+                </div>
+                <div class="grid grid-cols-2 gap-2">
+                  <button onclick="HoldContact()" class="bg-white hover:bg-indigo-50 text-phone-textSec text-sm py-2.5 rounded-xl transition flex items-center justify-center gap-2 font-medium border border-gray-200">
+                    <svg class="w-4 h-4 text-phone-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 9v6m4-6v6m7-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                    待机
+                  </button>
+                  <button onclick="ResumeContact()" class="bg-white hover:bg-indigo-50 text-phone-textSec text-sm py-2.5 rounded-xl transition flex items-center justify-center gap-2 font-medium border border-gray-200">
+                    <svg class="w-4 h-4 text-phone-green" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                    恢复
+                  </button>
+                  <button onclick="EndCall()" class="bg-phone-redLight hover:bg-red-100 text-phone-red text-sm py-2.5 rounded-xl transition flex items-center justify-center gap-2 font-medium border border-red-200">
+                    <svg class="w-4 h-4 rotate-[135deg]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
+                    挂断
+                  </button>
+                  <button onclick="ClearCall()" class="bg-phone-orangeLight hover:bg-amber-100 text-phone-orange text-sm py-2.5 rounded-xl transition flex items-center justify-center gap-2 font-medium border border-amber-200">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                    结束 ACW
+                  </button>
+                </div>
+              </div>
+              <!-- 外呼操作 -->
+              <div>
+                <div class="text-xs text-phone-muted font-medium mb-2 flex items-center gap-1">
+                  <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 3l-6 6m0 0V4m0 5h5M5 3a2 2 0 00-2 2v1c0 8.284 6.716 15 15 15h1a2 2 0 002-2v-3.28a1 1 0 00-.684-.948l-4.493-1.498a1 1 0 00-1.21.502l-1.13 2.257a11.042 11.042 0 01-5.516-5.516l2.257-1.13a1 1 0 00.502-1.21L9.228 3.683A1 1 0 008.279 3H5z"/></svg>
+                  外呼操作
+                </div>
+                <div class="grid grid-cols-2 gap-2">
+                  <button onclick="PlaceOutboundCall()" class="bg-phone-greenLight hover:bg-emerald-100 text-phone-green text-sm py-2.5 rounded-xl transition flex items-center justify-center gap-2 font-medium border border-emerald-200">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
+                    呼叫
+                  </button>
+                  <button onclick="PlaceOutboundCallFromRegion()" class="bg-white hover:bg-indigo-50 text-phone-textSec text-sm py-2.5 rounded-xl transition flex items-center justify-center gap-2 font-medium border border-gray-200">
+                    <svg class="w-4 h-4 text-phone-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                    跨区呼叫
+                  </button>
+                </div>
+              </div>
+              <!-- 转接操作 -->
+              <div>
+                <div class="text-xs text-phone-muted font-medium mb-2 flex items-center gap-1">
+                  <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"/></svg>
+                  转接操作
+                </div>
+                <div class="grid grid-cols-2 gap-2">
+                  <button onclick="TransferCall()" class="bg-white hover:bg-indigo-50 text-phone-textSec text-sm py-2.5 rounded-xl transition flex items-center justify-center gap-2 font-medium border border-gray-200">
+                    <svg class="w-4 h-4 text-phone-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"/></svg>
+                    快速转接
+                  </button>
+                  <button onclick="TransferCallWithPhoneNumber()" class="bg-white hover:bg-indigo-50 text-phone-textSec text-sm py-2.5 rounded-xl transition flex items-center justify-center gap-2 font-medium border border-gray-200">
+                    <svg class="w-4 h-4 text-phone-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
+                    号码转接
+                  </button>
+                </div>
+              </div>
+              <!-- 号码工具 -->
+              <div>
+                <div class="text-xs text-phone-muted font-medium mb-2 flex items-center gap-1">
+                  <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.066 2.573c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.573 1.066c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.066-2.573c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                  工具
+                </div>
+                <div class="grid grid-cols-2 gap-2">
+                  <button onclick="ParsePhoneNumber()" class="bg-white hover:bg-indigo-50 text-phone-textSec text-sm py-2.5 rounded-xl transition flex items-center justify-center gap-2 font-medium border border-gray-200">
+                    <svg class="w-4 h-4 text-phone-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                    解析国家
+                  </button>
+                  <button onclick="ConvertPhoneNumber()" class="bg-white hover:bg-indigo-50 text-phone-textSec text-sm py-2.5 rounded-xl transition flex items-center justify-center gap-2 font-medium border border-gray-200">
+                    <svg class="w-4 h-4 text-phone-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+                    格式化号码
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- end flex row -->
+
+    <!-- Hidden log elements holder -->
+    <div id="logHolder" style="display:none;">
+      <div id="logContent">
+        <div class="flex gap-2 mb-3">
           <button id="clear" onclick="clearOutput()"
             class="bg-white hover:bg-gray-50 text-phone-textSec text-sm px-4 py-1.5 rounded-lg transition border border-gray-200 shadow-sm">
-            Clear Event Output
-          </button>
-          <button id="outputContainer-btn" onclick="ShowOutput()"
-            class="bg-white hover:bg-gray-50 text-phone-textSec text-sm px-4 py-1.5 rounded-lg transition border border-gray-200 shadow-sm">
-            Show Event Output
+            清除日志
           </button>
         </div>
         <textarea id="message"
           class="w-full bg-white text-phone-text border border-gray-200 rounded-xl px-4 py-3 text-sm font-mono focus:outline-none focus:ring-2 focus:ring-indigo-200 focus:border-phone-accent shadow-sm"
-          rows="12" cols="50" style="display: none;"></textarea>
+          rows="16" cols="50"></textarea>
       </div>
     </div>
 
     <script type="text/javascript">
-      let seconds = 0;
-      let minutes = 0;
-      let hours = 0;
-      let checkTimer = null;
-      let primaryCheckTimer = null;
-      let secondaryCheckTimer = null;
+      let seconds = 0, minutes = 0, hours = 0;
+      let checkTimer = null, primaryCheckTimer = null, secondaryCheckTimer = null;
       let state = '';
-
       let instanceURL = "https://connect-us-1.my.connect.aws/ccp-v2/";
       let instanceRegion = "us-east-1";
       let loginURL = "";
@@ -334,6 +403,121 @@
         document.getElementById('tab-' + tab).classList.add('active');
         document.getElementById('panel-dialpad').classList.toggle('hidden', tab !== 'dialpad');
         document.getElementById('panel-transfer').classList.toggle('hidden', tab !== 'transfer');
+      }
+
+      function switchRightTab(tab) {
+        document.querySelectorAll('.right-tab-btn').forEach(b => b.classList.remove('active'));
+        const btn = document.getElementById('rightTab-' + tab);
+        if (btn) btn.classList.add('active');
+        document.getElementById('rightPanel-ccp').classList.toggle('hidden', tab !== 'ccp');
+        document.getElementById('rightPanel-log').classList.toggle('hidden', tab !== 'log');
+        document.getElementById('rightPanel-func').classList.toggle('hidden', tab !== 'func');
+      }
+
+      // Track which panels are active
+      window._rightPanels = new Set();
+
+      function updateRightPanel() {
+        const panel = document.getElementById('rightPanel');
+        const tabBar = document.getElementById('rightTabBar');
+        if (window._rightPanels.size === 0) {
+          panel.classList.add('hidden');
+          return;
+        }
+        panel.classList.remove('hidden');
+        // Rebuild tab bar
+        tabBar.innerHTML = '';
+        if (window._rightPanels.has('ccp')) {
+          const btn = document.createElement('button');
+          btn.id = 'rightTab-ccp';
+          btn.className = 'right-tab-btn flex-1 py-3 text-sm font-medium text-phone-muted flex items-center justify-center gap-2 transition';
+          btn.onclick = function() { switchRightTab('ccp'); };
+          btn.innerHTML = '<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg> 原生 Softphone';
+          tabBar.appendChild(btn);
+        }
+        if (window._rightPanels.has('log')) {
+          const btn = document.createElement('button');
+          btn.id = 'rightTab-log';
+          btn.className = 'right-tab-btn flex-1 py-3 text-sm font-medium text-phone-muted flex items-center justify-center gap-2 transition';
+          btn.onclick = function() { switchRightTab('log'); };
+          btn.innerHTML = '<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg> 日志';
+          tabBar.appendChild(btn);
+        }
+        if (window._rightPanels.has('func')) {
+          const btn = document.createElement('button');
+          btn.id = 'rightTab-func';
+          btn.className = 'right-tab-btn flex-1 py-3 text-sm font-medium text-phone-muted flex items-center justify-center gap-2 transition';
+          btn.onclick = function() { switchRightTab('func'); };
+          btn.innerHTML = '<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zm10 0a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zm10 0a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"/></svg> 功能';
+          tabBar.appendChild(btn);
+        }
+        // Auto-select: pick the most recently added, or first available
+        const panels = Array.from(window._rightPanels);
+        const current = panels[panels.length - 1];
+        switchRightTab(current);
+      }
+
+      // ===== CCP Panel Toggle =====
+
+      function toggleCCPPanel() {
+        const ccpSlot = document.getElementById('ccpSlot');
+        const ccpContainer = document.getElementById('ccpContainer');
+        const containerDiv = document.getElementById('container-div');
+
+        if (window._rightPanels.has('ccp')) {
+          // Hide CCP
+          window._rightPanels.delete('ccp');
+          ccpContainer.appendChild(containerDiv);
+          ccpContainer.style.display = 'none';
+          document.getElementById('rightPanel-ccp').classList.add('hidden');
+          document.getElementById('ccpToggleText').textContent = '原生 Softphone';
+        } else {
+          // Show CCP
+          window._rightPanels.add('ccp');
+          ccpSlot.appendChild(containerDiv);
+          containerDiv.style = 'width:100%;height:625px;display:block';
+          ccpContainer.style.display = 'none';
+          document.getElementById('ccpToggleText').textContent = '隐藏 Softphone';
+        }
+        updateRightPanel();
+      }
+
+      // ===== Log Panel Toggle =====
+
+      function toggleLogPanel() {
+        const logSlot = document.getElementById('logSlot');
+        const logHolder = document.getElementById('logHolder');
+        const logContent = document.getElementById('logContent');
+
+        if (window._rightPanels.has('log')) {
+          // Hide log
+          window._rightPanels.delete('log');
+          logHolder.appendChild(logContent);
+          logHolder.style.display = 'none';
+          document.getElementById('rightPanel-log').classList.add('hidden');
+          document.getElementById('logToggleText').textContent = '显示日志';
+        } else {
+          // Show log
+          window._rightPanels.add('log');
+          logSlot.appendChild(logContent);
+          document.getElementById('message').style.display = 'block';
+          document.getElementById('logToggleText').textContent = '隐藏日志';
+        }
+        updateRightPanel();
+      }
+
+      // ===== Func Panel Toggle =====
+
+      function toggleFuncPanel() {
+        if (window._rightPanels.has('func')) {
+          window._rightPanels.delete('func');
+          document.getElementById('rightPanel-func').classList.add('hidden');
+          document.getElementById('funcToggleText').textContent = '显示功能';
+        } else {
+          window._rightPanels.add('func');
+          document.getElementById('funcToggleText').textContent = '隐藏功能';
+        }
+        updateRightPanel();
       }
 
       function dialpadInput(digit) {
@@ -371,9 +555,8 @@
 
       function init() {
         window.localStorage.removeItem('connectPopupManager::connect::loginPopup');
-        window.isCCPVisible = true;
+        window.isCCPVisible = false;
         window.displayCloseButton = false;
-
         initialize();
         authenticate();
         initCore(instanceURL, loginURL, instanceRegion);
@@ -384,34 +567,22 @@
       function authenticate() {
         try {
           AWS.config.update({ region: '', accessKeyId: '', secretAccessKey: '' });
-        } catch (e) {
-          logOutput(e);
-        }
+        } catch (e) { logOutput(e); }
       }
 
       function initCore(instanceURL, loginURL, instanceRegion) {
         var containerDiv = document.getElementById("container-div");
         try {
           connect.core.initCCP(containerDiv, {
-            ccpUrl: instanceURL,
-            loginUrl: loginURL,
-            loginPopup: true,
-            loginPopupAutoClose: true,
+            ccpUrl: instanceURL, loginUrl: loginURL,
+            loginPopup: true, loginPopupAutoClose: true,
             loginOptions: { autoClose: true, height: 600, width: 400, top: 0, left: 0 },
             region: instanceRegion,
-            softphone: {
-              allowFramedSoftphone: true,
-              disableRingtone: false,
-              allowFramedVideoCall: true,
-            },
+            softphone: { allowFramedSoftphone: true, disableRingtone: false, allowFramedVideoCall: true },
             pageOptions: { enableAudioDeviceSettings: true, enablePhoneTypeSettings: true },
-            ccpAckTimeout: 3000,
-            ccpSynTimeout: 1000,
-            ccpLoadTimeout: 5000
+            ccpAckTimeout: 3000, ccpSynTimeout: 1000, ccpLoadTimeout: 5000
           });
-        } catch (err) {
-          console.error('initCCP error', err);
-        }
+        } catch (err) { console.error('initCCP error', err); }
       }
 
       // ===== Contact Events =====
@@ -422,72 +593,52 @@
           window.contact = c;
           const num = getCustomerPhoneNumber();
           restart_checker(true, num + ' CONNECTING', 'duration-indicator');
-          showIncomingUI(true);
-          showCallControls(false);
+          showIncomingUI(true); showCallControls(false);
         });
-
         c.onConnected(function (c) {
           logOutput('onConnected event : Contact connected to agent');
           window.contact = c;
           window.agentConnection = c.getAgentConnection();
           const num = getCustomerPhoneNumber();
           restart_checker(true, num + ' CONNECTED', 'duration-indicator');
-          showIncomingUI(false);
-          showCallControls(true);
+          showIncomingUI(false); showCallControls(true);
           secondaryCheckTimer = setInterval(function () { getTransferCalls(false); }, 1000);
         });
-
         c.onACW(function (c) {
           restart_checker(true, 'ACW', 'duration-indicator');
-          showIncomingUI(false);
-          showCallControls(true);
+          showIncomingUI(false); showCallControls(true);
         });
-
         c.contact.onEnded(function (c) {
           restart_checker(false, '', 'duration-indicator');
-          showIncomingUI(false);
-          showCallControls(false);
+          showIncomingUI(false); showCallControls(false);
         });
       }
 
-      function getCustomerPhoneNumber() {
-        return getCustomerPhoneNumberCore(window.contact);
-      }
-
-      function getCustomerPhoneNumberCore(c) {
-        var c1 = c.getConnections()[1];
-        return c1.getAddress()['phoneNumber'];
-      }
+      function getCustomerPhoneNumber() { return getCustomerPhoneNumberCore(window.contact); }
+      function getCustomerPhoneNumberCore(c) { return c.getConnections()[1].getAddress()['phoneNumber']; }
 
       // ===== Agent Events =====
 
       function subscribeToAgentEvents(agent) {
         logOutput('Agent login');
-        const panel = document.getElementById('panelContainer');
-        panel.style = "display:block";
-        loadAgentStates();
-        loadQuickConnects();
-        agent.onStateChange(function (stateChange) {
-          updateAgentStatusDot(stateChange.newState);
-        });
+        document.getElementById('panelContainer').style = "display:block";
+        loadAgentStates(); loadQuickConnects();
+        agent.onStateChange(function (sc) { updateAgentStatusDot(sc.newState); });
       }
 
       function loadQuickConnects() {
         var agent = new lily.Agent();
-        var queuesARNs = agent.getAllQueueARNs();
-        agent.getEndpoints(queuesARNs, {
+        agent.getEndpoints(agent.getAllQueueARNs(), {
           success: function (data) {
             window.endpoints = data.endpoints;
-            const dropdown = document.getElementById("myDropdown");
-            dropdown.options.length = 0;
+            const dd = document.getElementById("myDropdown");
+            dd.options.length = 0;
             for (let i = 0; i < data.endpoints.length; i++) {
-              const option = document.createElement("option");
-              option.value = i;
-              option.text = data.endpoints[i].name;
-              dropdown.add(option);
+              const o = document.createElement("option");
+              o.value = i; o.text = data.endpoints[i].name; dd.add(o);
             }
           },
-          failure: function (data) { }
+          failure: function () { }
         });
       }
 
@@ -497,31 +648,28 @@
         const states = agent.getAgentStates();
         states.sort((a, b) => a.name.localeCompare(b.name));
         window.agentStates = states;
-        const dropdown = document.getElementById("stateDropdown");
-        dropdown.options.length = 0;
+        const dd = document.getElementById("stateDropdown");
+        dd.options.length = 0;
         for (let i = 0; i < states.length; i++) {
-          const option = document.createElement("option");
-          option.value = i;
-          option.text = states[i].name;
-          if (option.text == curState) option.selected = "selected";
-          dropdown.add(option);
+          const o = document.createElement("option");
+          o.value = i; o.text = states[i].name;
+          if (o.text == curState) o.selected = "selected";
+          dd.add(o);
         }
         updateAgentStatusDot(curState);
       }
 
       function handleSelectChange() {
-        const dropdown = document.getElementById("stateDropdown");
-        const selectedOption = dropdown.options[dropdown.selectedIndex];
-        const selectedState = selectedOption.text;
-        SetAgentState(selectedState);
-        updateAgentStatusDot(selectedState);
+        const dd = document.getElementById("stateDropdown");
+        const s = dd.options[dd.selectedIndex].text;
+        SetAgentState(s); updateAgentStatusDot(s);
       }
 
-      function SetAgentState(stateName) {
+      function SetAgentState(name) {
         var agent = new lily.Agent();
         if (agent && window.agentStates.length > 0) {
-          const state = window.agentStates.filter(s => s.name === stateName)[0];
-          agent.setState(state, { success: function () { }, failure: function () { } });
+          agent.setState(window.agentStates.filter(s => s.name === name)[0],
+            { success: function () { }, failure: function () { } });
         }
       }
 
@@ -536,9 +684,8 @@
 
       function convertToE164(phoneNumber) {
         let cleaned = phoneNumber.replace(/\D/g, '');
-        if (cleaned.startsWith('00')) {
-          cleaned = cleaned.slice(2);
-        } else if (cleaned.startsWith('9') && cleaned.length > 10) {
+        if (cleaned.startsWith('00')) cleaned = cleaned.slice(2);
+        else if (cleaned.startsWith('9') && cleaned.length > 10) {
           cleaned = cleaned.slice(1);
           if (cleaned.startsWith('00')) cleaned = cleaned.slice(2);
         }
@@ -547,31 +694,22 @@
       }
 
       function ConvertPhoneNumber() {
-        const phoneNumber = document.getElementById('txtPhone').value;
-        let isValid = false;
-        try {
-          const parsedNumber = libphonenumber.parsePhoneNumber(phoneNumber);
-          if (parsedNumber && parsedNumber.isValid()) isValid = true;
-        } catch (error) { }
-        if (!isValid) {
-          document.getElementById('txtPhone').value = convertToE164(phoneNumber);
-        }
+        const pn = document.getElementById('txtPhone').value;
+        let valid = false;
+        try { const p = libphonenumber.parsePhoneNumber(pn); if (p && p.isValid()) valid = true; } catch (e) { }
+        if (!valid) document.getElementById('txtPhone').value = convertToE164(pn);
       }
 
       function ParsePhoneNumber() {
-        const phoneNumber = document.getElementById('txtPhone').value;
-        const parsedNumber = libphonenumber.parsePhoneNumber(phoneNumber);
-        if (parsedNumber && parsedNumber.isValid()) {
-          alert(parsedNumber.country);
-        }
+        const p = libphonenumber.parsePhoneNumber(document.getElementById('txtPhone').value);
+        if (p && p.isValid()) alert(p.country);
       }
 
       // ===== Call Actions =====
 
       function PlaceOutboundCall() {
         const phone = document.getElementById('txtPhone').value;
-        var agent = new lily.Agent();
-        agent.connect(connect.Endpoint.byPhoneNumber(phone), {});
+        new lily.Agent().connect(connect.Endpoint.byPhoneNumber(phone), {});
         restart_checker(true, 'CONNECTING', 'duration-indicator');
         showCallControls(true);
       }
@@ -579,149 +717,120 @@
       function PlaceOutboundCallFromRegion() {
         const phone = document.getElementById('txtPhone').value;
         try {
-          const insId = '86733caa-0c9d-4dd1-8246-9fac937ead23';
-          const flowId = '07c5785a-db08-44c8-9416-09a4a1b39545';
-          const didNumber = '+61370039593';
-          const awsconnect = new AWS.Connect();
           const params = {
-            ContactFlowId: flowId, InstanceId: insId,
-            DestinationPhoneNumber: phone, SourcePhoneNumber: didNumber
+            ContactFlowId: '07c5785a-db08-44c8-9416-09a4a1b39545',
+            InstanceId: '86733caa-0c9d-4dd1-8246-9fac937ead23',
+            DestinationPhoneNumber: phone,
+            SourcePhoneNumber: '+61370039593'
           };
-          awsconnect.startOutboundVoiceContact(params, function (err, res) {
+          new AWS.Connect().startOutboundVoiceContact(params, function (err, res) {
             logOutput("we are about to call customer from specifed region");
             logOutput(params);
             if (err) logOutput("Error calling customer: " + err);
             else logOutput("Calling customer: " + JSON.stringify(res));
           });
-        } catch (error) {
-          logOutput(error);
-        }
+        } catch (error) { logOutput(error); }
       }
 
       function AcceptContact() {
         if (window.contact == {}) { alert("No contact is coming"); return; }
-        window.contact.accept({ success: function () { }, failure: function (err) { } });
+        window.contact.accept({ success: function () { }, failure: function () { } });
       }
 
       function RejectContact() {
         if (window.contact == {}) { alert("No contact is coming"); return; }
         window.contact.reject({
           success: function () { restart_checker(false, '', 'duration-indicator'); showIncomingUI(false); },
-          failure: function (err) { }
+          failure: function () { }
         });
       }
 
       function HoldContact() {
-        var initialConnection = window.contact.getInitialConnection();
-        if (initialConnection) {
-          initialConnection.hold({ success: function () { }, failure: function (err) { } });
-        }
+        var ic = window.contact.getInitialConnection();
+        if (ic) ic.hold({ success: function () { }, failure: function () { } });
       }
 
       function ResumeContact() {
-        var initialConnection = window.contact.getInitialConnection();
-        if (initialConnection) {
-          initialConnection.resume({
-            success: function () {
-              const num = getCustomerPhoneNumber();
-              restart_checker(true, num + ' CONNECTED', 'duration-indicator');
-            },
-            failure: function (err) { }
-          });
-        }
+        var ic = window.contact.getInitialConnection();
+        if (ic) ic.resume({
+          success: function () { restart_checker(true, getCustomerPhoneNumber() + ' CONNECTED', 'duration-indicator'); },
+          failure: function () { }
+        });
       }
 
       function EndCall() {
         if (window.contact == {}) { logOutput("No call is connected"); return; }
-        var initialConnection = window.contact.getInitialConnection();
-        if (initialConnection) {
-          initialConnection.destroy({
-            success: function () { logOutput('onDestroy event : Contact destroyed'); },
-            failure: function (err) { logOutput(err); }
-          });
-        }
-        restart_checker(false, '', 'duration-indicator');
-        showCallControls(false);
+        var ic = window.contact.getInitialConnection();
+        if (ic) ic.destroy({
+          success: function () { logOutput('onDestroy event : Contact destroyed'); },
+          failure: function (err) { logOutput(err); }
+        });
+        restart_checker(false, '', 'duration-indicator'); showCallControls(false);
       }
 
       function ClearCall() {
         if (window.contact == {}) { alert("No contact is coming"); return; }
-        window.contact.clear({ success: function () { }, failure: function (err) { } });
-        restart_checker(false, '', 'duration-indicator');
-        showCallControls(false);
+        window.contact.clear({ success: function () { }, failure: function () { } });
+        restart_checker(false, '', 'duration-indicator'); showCallControls(false);
       }
 
       // ===== Transfer =====
 
       function TransferCall() {
-        const endpoint = getSelectedEndpoint();
-        var agent = new lily.Agent();
-        agent.getContacts(lily.ContactType.VOICE)[0].addConnection(endpoint, {
-          success: function (data) {
-            const num = getCustomerPhoneNumber();
-            restart_checker(true, num + ' ON HOLD', 'duration-indicator');
+        const ep = getSelectedEndpoint();
+        new lily.Agent().getContacts(lily.ContactType.VOICE)[0].addConnection(ep, {
+          success: function () {
+            restart_checker(true, getCustomerPhoneNumber() + ' ON HOLD', 'duration-indicator');
             primaryCheckTimer = setInterval(function () { getTransferCalls(true); }, 1000);
             if (secondaryCheckTimer) clearInterval(secondaryCheckTimer);
           },
-          failure: function (data) { alert("Error transfering call"); }
+          failure: function () { alert("Error transfering call"); }
         });
       }
 
       function TransferCallWithPhoneNumber() {
-        const phone = document.getElementById('txtPhone').value;
-        var agent = new lily.Agent();
-        var endpoint = connect.Endpoint.byPhoneNumber(phone);
-        agent.getContacts(lily.ContactType.VOICE)[0].addConnection(endpoint, {
-          success: function (data) {
+        const ep = connect.Endpoint.byPhoneNumber(document.getElementById('txtPhone').value);
+        new lily.Agent().getContacts(lily.ContactType.VOICE)[0].addConnection(ep, {
+          success: function () {
             primaryCheckTimer = setInterval(function () { getTransferCalls(true); }, 1000);
             if (secondaryCheckTimer) clearInterval(secondaryCheckTimer);
           },
-          failure: function (data) { alert("Error transfering call"); }
+          failure: function () { alert("Error transfering call"); }
         });
       }
 
       function getSelectedEndpoint() {
-        const dropdown = document.getElementById("myDropdown");
-        const selectedIndex = dropdown.selectedIndex;
-        if (selectedIndex !== -1) return window.endpoints[dropdown.options[selectedIndex].value];
-        return [];
+        const dd = document.getElementById("myDropdown");
+        return dd.selectedIndex !== -1 ? window.endpoints[dd.options[dd.selectedIndex].value] : [];
       }
 
       function getTransferCalls(display) {
-        const partydiv = document.getElementById('duration-indicator-thirdparty');
-        partydiv.innerHTML = '';
-        const connects = contact.getThirdPartyConnections();
-        connects.forEach(c => createThirdParthConnection(c, 'duration-indicator-thirdparty', display));
-        partydiv.style = connects.length > 0 ? "display:block" : "display:none";
+        const div = document.getElementById('duration-indicator-thirdparty');
+        div.innerHTML = '';
+        const conns = contact.getThirdPartyConnections();
+        conns.forEach(c => createThirdParthConnection(c, 'duration-indicator-thirdparty', display));
+        div.style = conns.length > 0 ? "display:block" : "display:none";
       }
 
-      function formatTime(milliseconds) {
-        const date = new Date(milliseconds);
-        const h = String(date.getUTCHours()).padStart(2, '0');
-        const m = String(date.getUTCMinutes()).padStart(2, '0');
-        const s = String(date.getUTCSeconds()).padStart(2, '0');
-        return `${h}:${m}:${s}`;
+      function formatTime(ms) {
+        const d = new Date(ms);
+        return `${String(d.getUTCHours()).padStart(2,'0')}:${String(d.getUTCMinutes()).padStart(2,'0')}:${String(d.getUTCSeconds()).padStart(2,'0')}`;
       }
 
       function createThirdParthConnection(c, container, display) {
-        const phonenumber = c.getAddress()['phoneNumber'];
-        const status = c.getStatus().type.toUpperCase();
-        const statusduration = formatTime(c.getStateDuration());
-        if (status !== 'DISCONNECTED') {
-          const div = document.createElement('div');
-          div.classList.add('duration-indicator-thirdparty');
-          div.textContent = phonenumber + ' ' + status + ' ' + statusduration;
-          if (display) {
-            const btn = document.createElement('button');
-            btn.classList.add('close-button');
-            btn.textContent = '×';
-            btn.addEventListener('click', () => {
-              c.destroy({ success: function () { }, failure: function (err) { alert(err); } });
-            });
-            div.appendChild(btn);
-          }
-          document.getElementById(container).appendChild(div);
+        const num = c.getAddress()['phoneNumber'];
+        const st = c.getStatus().type.toUpperCase();
+        if (st === 'DISCONNECTED') return;
+        const div = document.createElement('div');
+        div.classList.add('duration-indicator-thirdparty');
+        div.textContent = num + ' ' + st + ' ' + formatTime(c.getStateDuration());
+        if (display) {
+          const btn = document.createElement('button');
+          btn.classList.add('close-button'); btn.textContent = '×';
+          btn.addEventListener('click', () => { c.destroy({ success(){}, failure(e){ alert(e); } }); });
+          div.appendChild(btn);
         }
+        document.getElementById(container).appendChild(div);
       }
 
       // ===== Timer =====
@@ -729,8 +838,8 @@
       function restart_checker(display, s, divId) {
         if (checkTimer != null) clearInterval(checkTimer);
         state = s;
-        const timerDiv = document.getElementById(divId);
-        timerDiv.style = display ? "display:block" : "display:none";
+        const el = document.getElementById(divId);
+        el.style = display ? "display:block" : "display:none";
         if (display) {
           hours = 0; minutes = 0; seconds = 0;
           updateDuration();
@@ -742,42 +851,25 @@
         seconds++;
         if (seconds >= 60) { seconds = 0; minutes++; }
         if (minutes >= 60) { minutes = 0; hours++; }
-        const str = `${String(hours).padStart(2,'0')}:${String(minutes).padStart(2,'0')}:${String(seconds).padStart(2,'0')}`;
-        document.getElementById('duration-indicator').textContent = state + ' ' + str;
+        document.getElementById('duration-indicator').textContent =
+          state + ' ' + `${String(hours).padStart(2,'0')}:${String(minutes).padStart(2,'0')}:${String(seconds).padStart(2,'0')}`;
       }
 
-      // ===== CCP Visibility =====
-
-      function HideCCP() {
-        const firstColumn = document.querySelector('.first-column');
-        firstColumn.classList.toggle('hidden');
-        window.isCCPVisible = !window.isCCPVisible;
-        document.getElementById('ccpToggleText').textContent = window.isCCPVisible ? "隐藏 CCP" : "显示 CCP";
-        var containerDiv = document.getElementById("container-div");
-        containerDiv.style = window.isCCPVisible ? "width:100%;height:625px;display:block" : "width:100%;height:100%;display:none";
-      }
+      // ===== CCP Terminate =====
 
       function Terminate() {
-        var containerDiv = document.getElementById("container-div");
         connect.core.terminate();
-        var iframe = containerDiv.firstElementChild;
-        containerDiv.removeChild(iframe);
+        var containerDiv = document.getElementById("container-div");
+        if (containerDiv.firstElementChild) containerDiv.removeChild(containerDiv.firstElementChild);
       }
 
       // ===== Output =====
 
-      function ShowOutput() {
-        window.isOutputVisible = !window.isOutputVisible;
-        document.getElementById("outputContainer-btn").textContent = window.isOutputVisible ? "Hide Event Output" : "Show Event Output";
-        document.getElementById("message").style = window.isOutputVisible ? "display:block" : "display:none";
-      }
-
       function clearOutput() { document.getElementById('message').value = ""; }
-
       function logOutput(text) { document.getElementById("message").value += text + "\n"; }
 
-      function toggleColumn(columnClass) {
-        Array.from(document.getElementsByClassName(columnClass)).forEach(c => c.classList.toggle('hidden'));
+      function toggleColumn(cls) {
+        Array.from(document.getElementsByClassName(cls)).forEach(c => c.classList.toggle('hidden'));
       }
     </script>
 </body>
