@@ -226,10 +226,14 @@
 
           <!-- In-Call Controls -->
           <div id="callControls" class="px-4 pb-3 hidden">
-            <div class="grid grid-cols-4 gap-2">
+            <div class="grid grid-cols-5 gap-2">
               <button onclick="HoldContact()" title="待机" class="bg-white hover:bg-indigo-50 text-phone-textSec rounded-xl py-3 transition flex flex-col items-center gap-1 border border-gray-100 shadow-sm">
                 <svg class="w-5 h-5 text-phone-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 9v6m4-6v6m7-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
                 <span class="text-[10px]">待机</span>
+              </button>
+              <button id="muteBtn" onclick="toggleMute()" title="静音" class="bg-white hover:bg-indigo-50 text-phone-textSec rounded-xl py-3 transition flex flex-col items-center gap-1 border border-gray-100 shadow-sm">
+                <svg id="muteIcon" class="w-5 h-5 text-phone-muted" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2"/></svg>
+                <span id="muteBtnText" class="text-[10px]">静音</span>
               </button>
               <button onclick="ResumeContact()" title="恢复" class="bg-white hover:bg-indigo-50 text-phone-textSec rounded-xl py-3 transition flex flex-col items-center gap-1 border border-gray-100 shadow-sm">
                 <svg class="w-5 h-5 text-phone-green" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
@@ -292,10 +296,14 @@
                   <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"/></svg>
                   通话控制
                 </div>
-                <div class="grid grid-cols-2 gap-2">
+                <div class="grid grid-cols-3 gap-2">
                   <button onclick="HoldContact()" class="bg-white hover:bg-indigo-50 text-phone-textSec text-sm py-2.5 rounded-xl transition flex items-center justify-center gap-2 font-medium border border-gray-200">
                     <svg class="w-4 h-4 text-phone-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 9v6m4-6v6m7-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
                     待机
+                  </button>
+                  <button id="muteBtnFunc" onclick="toggleMute()" class="bg-white hover:bg-indigo-50 text-phone-textSec text-sm py-2.5 rounded-xl transition flex items-center justify-center gap-2 font-medium border border-gray-200">
+                    <svg class="w-4 h-4 text-phone-muted" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2"/></svg>
+                    <span id="muteBtnFuncText">静音</span>
                   </button>
                   <button onclick="ResumeContact()" class="bg-white hover:bg-indigo-50 text-phone-textSec text-sm py-2.5 rounded-xl transition flex items-center justify-center gap-2 font-medium border border-gray-200">
                     <svg class="w-4 h-4 text-phone-green" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
@@ -680,6 +688,7 @@
         window.contact = window.contact || {};
         window.endpoints = window.endpoints || [];
         window.isOutputVisible = false;
+        window._isMuted = false;
       }
 
       function convertToE164(phoneNumber) {
@@ -748,6 +757,50 @@
       function HoldContact() {
         var ic = window.contact.getInitialConnection();
         if (ic) ic.hold({ success: function () { }, failure: function () { } });
+      }
+
+      function toggleMute() {
+        var agent = new lily.Agent();
+        if (window._isMuted) {
+          agent.unmute();
+          window._isMuted = false;
+        } else {
+          agent.mute();
+          window._isMuted = true;
+        }
+        updateMuteUI();
+      }
+
+      function updateMuteUI() {
+        const muted = window._isMuted;
+        // Softphone in-call button
+        const btn = document.getElementById('muteBtn');
+        const text = document.getElementById('muteBtnText');
+        const icon = document.getElementById('muteIcon');
+        if (btn) {
+          text.textContent = muted ? '取消静音' : '静音';
+          icon.innerHTML = muted
+            ? '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"/>'
+            : '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2"/>';
+          btn.classList.toggle('bg-phone-redLight', muted);
+          btn.classList.toggle('text-phone-red', muted);
+          btn.classList.toggle('border-red-100', muted);
+          btn.classList.toggle('bg-white', !muted);
+          btn.classList.toggle('text-phone-textSec', !muted);
+          btn.classList.toggle('border-gray-100', !muted);
+        }
+        // Func panel button
+        const funcText = document.getElementById('muteBtnFuncText');
+        const funcBtn = document.getElementById('muteBtnFunc');
+        if (funcBtn) {
+          funcText.textContent = muted ? '取消静音' : '静音';
+          funcBtn.classList.toggle('bg-phone-redLight', muted);
+          funcBtn.classList.toggle('text-phone-red', muted);
+          funcBtn.classList.toggle('border-red-200', muted);
+          funcBtn.classList.toggle('bg-white', !muted);
+          funcBtn.classList.toggle('text-phone-textSec', !muted);
+          funcBtn.classList.toggle('border-gray-200', !muted);
+        }
       }
 
       function ResumeContact() {
